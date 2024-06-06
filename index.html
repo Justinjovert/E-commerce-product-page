@@ -19,7 +19,7 @@
 
     <aside class="sidebar">
         <div class="sidebar-content">
-            <button id="close-sidebar"><img src ="images/icon-close.svg"></button>
+            <button id="close-sidebar"><img src="images/icon-close.svg"></button>
             <div class="sidebar-collection">
                 <a>Collections</a>
                 <a>Men</a>
@@ -32,6 +32,7 @@
     <header class='navbar-container'>
         <nav class='navbar'>
             <div class="navbar-links">
+                <button class="sidebar-open"><img src="images/icon-menu.svg"></button>
                 <div class="navbar-logo"><img src="./images/logo.svg" alt="Logo"></div>
                 <a>Collections</a>
                 <a>Men</a>
@@ -50,7 +51,11 @@
         <article class="container">
             <div class="product-wrapper">
                 <section class="product-display">
-                    <div class="image-container"><img src="images/image-product-1.jpg"></div>
+                    <div class="image-container">
+                        <button id="previous-image" class="image-cycle"><img src="images/icon-previous.svg"></button>
+                        <img src="images/image-product-1.jpg">
+                        <button id="next-image" class="image-cycle"><img src="images/icon-next.svg"></button>
+                    </div>
                     <div class="product-thumbnails">
                         <img src="images/image-product-1-thumbnail.jpg">
                         <img src="images/image-product-2-thumbnail.jpg">
@@ -82,8 +87,10 @@
                             <button id="higherQuantity"><img alt="Lower Quantity" src="images/icon-plus.svg"></button>
                         </div>
                         <button class='add-to-cart'>
-                            <img src="./images/icon-cart.svg">
-                            Add to cart
+                            <div>
+                                <img src="./images/icon-cart.svg">
+                                Add to cart
+                            </div>
                         </button>
                     </div>
 
