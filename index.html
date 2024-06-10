@@ -10,6 +10,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@100..900&display=swap" rel="stylesheet">
+    <script type="module" src="ecommerce.js" defer></script>
     <title>Frontend Mentor | E-commerce product page</title>
 
 
@@ -29,6 +30,7 @@
             </div>
         </div>
     </aside>
+    <div id="overlay"></div>
     <header class='navbar-container'>
         <nav class='navbar'>
             <div class="navbar-links">
@@ -52,11 +54,28 @@
             <div class="product-wrapper">
                 <section class="product-display">
                     <div class="image-container">
+                        <!-- Displays the iamges when interacted -->
+                        <div class="display-image-container">
+                            <div class="display-image-wrapper" data-carousel>
+                                <ul class="slider" data-slides>
+                                    <!-- default -->
+                                    <li data-active><img src="images/image-product-1.jpg" alt="Product 1"></li>
+                                    <li><img src="images/image-product-2.jpg" alt="Product 2"></li>
+                                    <li><img src="images/image-product-3.jpg" alt="Product 3"></li>
+                                    <li><img src="images/image-product-4.jpg" alt="Product 4"></li>
+                                </ul>
+                                <button id="display-previous-image" class="image-cycle-display" data-carousel-button="prev">
+                                    <img src="images/icon-previous.svg">
+                                <button id="display-next-image" class="image-cycle-display" data-carousel-button="next">
+                                    <img src="images/icon-next.svg">
+                                </button>
+                            </div>
+                        </div>
                         <button id="previous-image" class="image-cycle"><img src="images/icon-previous.svg"></button>
-                        <img src="images/image-product-1.jpg">
+                        <img id="mainDisplay" src="images/image-product-1.jpg">
                         <button id="next-image" class="image-cycle"><img src="images/icon-next.svg"></button>
                     </div>
-                    <div class="product-thumbnails">
+                    <div id="productThumbnails" class="product-thumbnails">
                         <img src="images/image-product-1-thumbnail.jpg">
                         <img src="images/image-product-2-thumbnail.jpg">
                         <img src="images/image-product-3-thumbnail.jpg">

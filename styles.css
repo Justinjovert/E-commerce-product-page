@@ -15,6 +15,16 @@ body {
 
 }
 
+#overlay {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 2;
+    display: none;
+    cursor: pointer;
+}
+
 .navbar-container {
     display: flex;
     justify-content: center;
@@ -89,6 +99,16 @@ body {
 .sidebar-content {
     padding: 2em;
     font-size: 22px;
+}
+
+.sidebar-content button {
+    padding: 5px;
+    box-sizing: border-box;
+    border-radius: 5px;
+}
+
+.sidebar-content button:hover {
+    background-color: lightgray;
 }
 
 .sidebar-collection {
@@ -166,47 +186,112 @@ body {
     width: auto;
     height: auto;
     position: relative;
+    cursor: pointer;
 }
 
-.image-container img {
+.image-container > img {
     width: 100%;
     height: 100%;
     border-radius: 10px;
 }
 
-.image-cycle{
+.display-image-container {
+    position: fixed;
+    min-width: 280px;
+    width: 70vw;
+    max-width: 500px;
+    z-index: 100;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+}
+.display-image-container ul, 
+.display-image-container li{
+    padding: 0;
+    margin: 0;
+}
+
+.display-image-wrapper{
+    position: relative;
+}
+.slider {
+    position: absolute; /* Set position to absolute for carousel */
+    width: 100%;
+    list-style: none;
+    padding: 0;
+}
+
+.slider li {
+    position: absolute;
+    transform: translateY(-50%);
+    opacity: 0;
+}
+.slider li[data-active]{
+    opacity: 1;
+    z-index: 1;
+}
+
+.display-image-container img {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+}
+
+#display-previous-image {
+    top: 50%;
+    left: -25px;
+}
+#display-next-image {
+    top: 50%;
+    right: -25px
+}
+
+.image-cycle, .image-cycle-display {
     position: absolute;
     border: 0;
     background-color: white;
     border-radius: 50%;
     padding: 15px;
     margin: 0;
-    display: flex;
     justify-content: center;
     cursor: pointer;
+    z-index: 2;
 }
-.image-cycle img{
+.image-cycle{
+    display: none;
+}
+
+.image-cycle img {
     width: 10px;
     height: 16px;
     padding: 0 3px;
 }
-#previous-image{
+.image-cycle:hover{
+    fill: var(--primary-orange)
+}
+
+#previous-image {
     top: 50%;
     left: 20px;
 }
-#next-image{
+
+#next-image {
     top: 50%;
     right: 20px;
 }
 
-.product-thumbnails {
+.product-thumbnails, .product-thumbnails-active  {
     display: flex;
     width: 100%;
-    justify-content: space-between;
+    justify-content: space-evenly;
     margin-top: 1.25rem;
 }
+.product-thumbnails-active{
+    gap: 10px;
+}
 
-.product-thumbnails img {
+.product-thumbnails img, .product-thumbnails-active img  {
     min-width: 75px;
     min-height: 75px;
     width: auto;
@@ -218,12 +303,24 @@ body {
     box-sizing: border-box;
 }
 
-.product-thumbnails img:active {
+.product-thumbnails-active img{
+    background-color: gray;
+    min-width: 60px !important;
+    min-height: 60px !important;
+    width: auto;
+    height: auto;
+    max-width: 90px;
+    max-height: 90px;
+}
+
+.product-thumbnails img:active, .product-thumbnails-active img:active  {
     border: 3px solid var(--primary-orange);
 }
 
 .product-thumbnails img:hover,
-.product-thumbnails img:active {
+.product-thumbnails img:active,
+.product-thumbnails-active img:hover,
+.product-thumbnails-active img:active  {
     background-color: white;
     opacity: 50%;
 }
@@ -350,8 +447,9 @@ body {
     border-radius: 8px;
     cursor: pointer;
 }
-.add-to-cart:hover{
-    background-color: hsl(26, 100%, 62%) ;
+
+.add-to-cart:hover {
+    background-color: hsl(26, 100%, 62%);
 }
 
 .add-to-cart img {
@@ -411,9 +509,13 @@ body {
         min-height: auto;
     }
 
-    .image-container img {
+    .image-container > img {
         object-fit: cover;
         border-radius: 0;
+    }
+
+    .image-cycle {
+        display: flex;
     }
 
     .product-prices {
