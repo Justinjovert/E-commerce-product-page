@@ -28,7 +28,7 @@ overlay.addEventListener('click', () => {
     displayImageContainer.style.display = 'none'
 
     // Deletes all active slide
-    const activeSlides = document.querySelector('[data-slides]').querySelectorAll('[data-active]')
+    const activeSlides = document.querySelector('.slider').querySelectorAll('[data-active]')
     activeSlides.forEach(activeSlide => {
         delete activeSlide.dataset.active
     })
@@ -39,12 +39,12 @@ overlay.addEventListener('click', () => {
  * Cycles through the images
  */
 
-const mainDisplay = document.querySelector('[data-display]').querySelectorAll('li')
+const mainDisplay = document.querySelector('.main-display').querySelectorAll('li')
 mainDisplay.forEach(display => {
     display.addEventListener('click', () => {
         let productValue = display.dataset.product
         let selector = `[data-product="${productValue}"]`
-        const newActiveSlide = document.querySelector('[data-slides]').querySelector(selector)
+        const newActiveSlide = document.querySelector('.slider').querySelector(selector)
 
         //Set active
         newActiveSlide.dataset.active = 'true'
@@ -68,22 +68,43 @@ proThumbLists.forEach(proThumb => {
             //Change main display
             let productValue = proThumb.dataset.product
             let selector = `[data-product="${productValue}"]`
-            const activeDisplay = document.querySelector('[data-display]').querySelector('[data-active]')
-            const newActiveDisplay = document.querySelector('[data-display').querySelector(selector)
+            const activeDisplay = document.querySelector('.main-display').querySelector('[data-active]')
+            const newActiveDisplay = document.querySelector('.main-display').querySelector(selector)
 
-            /* //Change content when main display is interacted
-            const slides = document.querySelector('[data-carousel').querySelector('[data-slides]')
-            const activeSlide = slides.querySelector('[data-active]')
-            const newActiveSlide = slides.querySelector(selector) */
-
-            // Set new active for slider
-            /* newActiveSlide.dataset.active = 'true'
-            delete activeSlide.dataset.active */
-            // Set new active for main display
             newActiveDisplay.dataset.active = 'true'
             delete activeDisplay.dataset.active
         }
+    })
+})
 
+// For when thumbnails are interated while images being displayed in the center
+// of the screen
+const productThumbnailsDisplay = document.querySelector('.product-thumbnails-display')
+const productThumbnailsDisplayList = productThumbnailsDisplay.querySelectorAll('li')
+productThumbnailsDisplayList.forEach(proThumbDis => {
+    proThumbDis.addEventListener('click', () => {
+        /* const activeDisplays = document.querySelector('.slider').querySelectorAll('[data-active]')
+        activeDisplays.forEach(activeDisplay => {
+            delete activeDisplay.dataset.active
+        }) */
+        const activeThumbDisplay = productThumbnailsDisplay.querySelector('.product-thumbnails-active')
+        if (!proThumbDis.classList.contains('product-thumbnails-active')) {
+            proThumbDis.classList.add('product-thumbnails-active')
+            activeThumbDisplay.classList.remove('product-thumbnails-active')
+
+            // Change displayed image
+            let productValue = proThumbDis.dataset.product
+            let selector = `[data-product="${productValue}"]`
+            //const activeDisplay = document.querySelector('.slider').querySelector('[data-active]')
+            const newActiveDisplay = document.querySelector('.slider').querySelector(selector)
+
+            const activeDisplays = document.querySelector('.slider').querySelectorAll('[data-active]')
+            activeDisplays.forEach(activeDisplay => {
+                delete activeDisplay.dataset.active
+            })
+            newActiveDisplay.dataset.active = 'true'
+            /* delete activeDisplay.dataset.active */
+        }
 
     })
 })
