@@ -130,6 +130,20 @@ buttons.forEach(button => {
 // For when the image is cycled in product/main display
 
 
+// Function that checks if cart is empty
+const isItEmpty = document.querySelector('.is-it-empty-container')
+const isCartEmpty = () => {
+    if(cartList.children.length >= 1 ){
+        isItEmpty.style.display = 'none'
+        checkout.style.display = 'block'
+    }
+    else if(cartList.children.length == 0){
+        checkout.style.display = 'none'
+        isItEmpty.style.display = 'grid'
+    }
+}
+
+
 
 // Quantity
 const quantityButtons = document.querySelectorAll('[data-value]')
@@ -215,6 +229,7 @@ addToCart.addEventListener('click', () => {
     newList.appendChild(buttonDelete)
 
     cartList.appendChild(newList)
+    isCartEmpty()
 })
 
 
@@ -232,6 +247,7 @@ cartList.addEventListener('click', event => {
         // Delete the list, which is the product item in the cart
         targetElement.parentNode.remove()
     }
+    isCartEmpty()
 })
 
 
@@ -244,5 +260,6 @@ checkout.addEventListener('click', () =>{
             item.remove()
         })
         alert('Thank you for your purchase!')
+        isCartEmpty()
     }
 })
