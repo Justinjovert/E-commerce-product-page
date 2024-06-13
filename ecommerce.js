@@ -47,8 +47,12 @@ mainDisplay.forEach(display => {
         let selector = `[data-product="${productValue}"]`
         const newActiveSlide = document.querySelector('.slider').querySelector(selector)
 
+        
         //Set active
         newActiveSlide.dataset.active = 'true'
+        const activeThisThumbnail = document.querySelector('.product-thumbnails-display').querySelector(selector)
+        activeThumbnailDisplay(activeThisThumbnail)
+
 
         displayImageContainer.style.display = 'block'
         overlay.style.display = 'block'
@@ -78,35 +82,36 @@ proThumbLists.forEach(proThumb => {
     })
 })
 
+
+// Function that changes the active element in thumbnail display
+const activeThumbnailDisplay = (element) => {
+    if (!element.classList.contains('product-thumbnails-active')) {
+        const activeThumbDisplay = productThumbnailsDisplay.querySelector('.product-thumbnails-active')
+        if(activeThumbDisplay) activeThumbDisplay.classList.remove('product-thumbnails-active')
+        element.classList.add('product-thumbnails-active')
+
+        // Change displayed image
+        let productValue = element.dataset.product
+        let selector = `[data-product="${productValue}"]`
+        //const activeDisplay = document.querySelector('.slider').querySelector('[data-active]')
+        const newActiveDisplay = document.querySelector('.slider').querySelector(selector)
+
+        const activeDisplays = document.querySelector('.slider').querySelectorAll('[data-active]')
+        activeDisplays.forEach(activeDisplay => {
+            delete activeDisplay.dataset.active
+        })
+        newActiveDisplay.dataset.active = 'true'
+    }
+}
+
+
 // For when thumbnails are interated while images being displayed in the center
 // of the screen
 const productThumbnailsDisplay = document.querySelector('.product-thumbnails-display')
 const productThumbnailsDisplayList = productThumbnailsDisplay.querySelectorAll('li')
 productThumbnailsDisplayList.forEach(proThumbDis => {
     proThumbDis.addEventListener('click', () => {
-        /* const activeDisplays = document.querySelector('.slider').querySelectorAll('[data-active]')
-        activeDisplays.forEach(activeDisplay => {
-            delete activeDisplay.dataset.active
-        }) */
-        const activeThumbDisplay = productThumbnailsDisplay.querySelector('.product-thumbnails-active')
-        if (!proThumbDis.classList.contains('product-thumbnails-active')) {
-            proThumbDis.classList.add('product-thumbnails-active')
-            activeThumbDisplay.classList.remove('product-thumbnails-active')
-
-            // Change displayed image
-            let productValue = proThumbDis.dataset.product
-            let selector = `[data-product="${productValue}"]`
-            //const activeDisplay = document.querySelector('.slider').querySelector('[data-active]')
-            const newActiveDisplay = document.querySelector('.slider').querySelector(selector)
-
-            const activeDisplays = document.querySelector('.slider').querySelectorAll('[data-active]')
-            activeDisplays.forEach(activeDisplay => {
-                delete activeDisplay.dataset.active
-            })
-            newActiveDisplay.dataset.active = 'true'
-            /* delete activeDisplay.dataset.active */
-        }
-
+        activeThumbnailDisplay(proThumbDis)
     })
 })
 
@@ -124,20 +129,23 @@ buttons.forEach(button => {
 
         slides.children[index].dataset.active = 'true'
         delete activeSlide.dataset.active
+
+        let thisThumbnail = `[data-product="${slides.children[index].dataset.product}"]`
+        const activeThisThumbnail = document.querySelector('.product-thumbnails-display').querySelector(thisThumbnail)
+        activeThumbnailDisplay(activeThisThumbnail)
     })
 })
 
-// For when the image is cycled in product/main display
 
 
 // Function that checks if cart is empty
 const isItEmpty = document.querySelector('.is-it-empty-container')
 const isCartEmpty = () => {
-    if(cartList.children.length >= 1 ){
+    if (cartList.children.length >= 1) {
         isItEmpty.style.display = 'none'
         checkout.style.display = 'block'
     }
-    else if(cartList.children.length == 0){
+    else if (cartList.children.length == 0) {
         checkout.style.display = 'none'
         isItEmpty.style.display = 'grid'
     }
@@ -238,10 +246,10 @@ cartList.addEventListener('click', event => {
     // If button is clicked or the img, ensure it has same target element
     if (event.target.classList.contains('delete-item') || event.target.parentNode.classList.contains('delete-item')) {
         let targetElement
-        if(event.target.parentNode.classList.contains('delete-item')){
+        if (event.target.parentNode.classList.contains('delete-item')) {
             targetElement = event.target.parentNode
         }
-        else{
+        else {
             targetElement = event.target
         }
         // Delete the list, which is the product item in the cart
@@ -253,8 +261,8 @@ cartList.addEventListener('click', event => {
 
 // If successful checkout
 const checkout = document.querySelector('.checkout-button')
-checkout.addEventListener('click', () =>{
-    if(cartList.children.length >= 1){
+checkout.addEventListener('click', () => {
+    if (cartList.children.length >= 1) {
         let checkoutTheseItems = Array.from(cartList.children)
         checkoutTheseItems.forEach(item => {
             item.remove()

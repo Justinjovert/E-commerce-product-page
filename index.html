@@ -54,7 +54,9 @@
                 <ul class="cart-list">
                 </ul>
                 <div class="is-it-empty-container"><span>Your cart is empty!</span></div>
-                <button class="checkout-button"><div>Checkout</div></button>
+                <button class="checkout-button">
+                    <div>Checkout</div>
+                </button>
             </div>
         </nav>
     </header>
@@ -66,6 +68,8 @@
                     <div class="image-container">
                         <!-- Displays the iamges when interacted -->
                         <div class="display-image-container">
+                            <button id="close-sidebar" class="display-close-button"><img
+                                    src="images/icon-close.svg"></button>
                             <div class="display-image-wrapper" data-carousel>
                                 <ul class="slider" data-slides>
                                     <li data-product="1"><img src="images/image-product-1.jpg" alt="Product 1"></li>
@@ -82,8 +86,7 @@
                                 </button>
                             </div>
                             <ul class="product-thumbnails-display" data-thumbnails>
-                                <li class="product-thumbnails-active" data-product="1"><img
-                                        src="images/image-product-1-thumbnail.jpg"></li>
+                                <li data-product="1"><img src="images/image-product-1-thumbnail.jpg"></li>
                                 <li data-product="2"><img src="images/image-product-2-thumbnail.jpg"></li>
                                 <li data-product="3"><img src="images/image-product-3-thumbnail.jpg"></li>
                                 <li data-product="4"><img src="images/image-product-4-thumbnail.jpg"></li>
@@ -130,9 +133,11 @@
 
                     <div class="userinput-container">
                         <div class="userinput-quantity">
-                            <button id="lowerQuantity" data-value="-1"><img alt="Lower Quantity" src="images/icon-minus.svg"></button>
+                            <button id="lowerQuantity" data-value="-1"><img alt="Lower Quantity"
+                                    src="images/icon-minus.svg"></button>
                             <label data-quantity="0">0</label>
-                            <button id="higherQuantity" data-value="1"><img alt="Lower Quantity" src="images/icon-plus.svg"></button>
+                            <button id="higherQuantity" data-value="1"><img alt="Lower Quantity"
+                                    src="images/icon-plus.svg"></button>
                         </div>
                         <button class='add-to-cart'>
                             <div>
