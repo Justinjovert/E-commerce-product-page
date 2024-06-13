@@ -2,6 +2,7 @@
 const overlay = document.getElementById('overlay')
 const sidebar = document.querySelector('.sidebar')
 const displayImageContainer = document.querySelector('.display-image-container')
+const cart = document.querySelector('.cart-container')
 
 /* 
  * Opens the closes the sidebar 
@@ -127,3 +128,121 @@ buttons.forEach(button => {
 })
 
 // For when the image is cycled in product/main display
+
+
+
+// Quantity
+const quantityButtons = document.querySelectorAll('[data-value]')
+const quantityLabel = document.querySelector('[data-quantity]')
+quantityButtons.forEach(quantityButton => {
+    quantityButton.addEventListener('click', e => {
+        // Adds the value of the button to the label // -1 or +1
+        if (parseInt(quantityButton.dataset.value) > 0 || (parseInt(quantityButton.dataset.value) < 0 && parseInt(quantityLabel.dataset.quantity) > 0)) {
+            let newValue = parseInt(quantityLabel.dataset.quantity) + parseInt(quantityButton.dataset.value)
+            quantityLabel.dataset.quantity = newValue.toString()
+            quantityLabel.textContent = newValue.toString()
+        }
+    })
+})
+
+
+// Cart button
+const openCart = document.querySelector('.cart-button')
+openCart.addEventListener('click', () => {
+    if (window.getComputedStyle(cart).display === 'block') {
+        cart.style.display = 'none'
+    }
+    else {
+        cart.style.display = 'block'
+    }
+})
+
+
+//Add to cart
+const cartList = document.querySelector('.cart-list')
+const addToCart = document.querySelector('.add-to-cart')
+addToCart.addEventListener('click', () => {
+    // Checks if quantity is more than 0
+    const quantity = document.querySelector('[data-quantity]')
+    if (quantity.dataset.quantity == 0) {
+        return
+    }
+
+    // Create new list
+    const newList = document.createElement('li')
+
+    // Thumbnail
+    const thumbnailDiv = document.createElement('div')
+    thumbnailDiv.classList.add('cart-thumbnail')
+    const locateThumbnail = document.querySelector('[data-thumbnails]').querySelector('[data-product="1"]')
+    const cloneThisSrc = locateThumbnail.cloneNode(true)
+    const thumbnailIMG = cloneThisSrc.childNodes[0]
+    thumbnailDiv.appendChild(thumbnailIMG)
+
+    //Cart details
+    const cartDetails = document.createElement('div')
+    cartDetails.classList.add('cart-details')
+    // Title of product
+    const productTitle = document.createElement('span')
+    const dataProductName = document.querySelector('[data-product-name]')
+    productTitle.textContent = dataProductName.dataset.productName
+    cartDetails.appendChild(productTitle)
+
+    // Price details
+    const priceDetailsContainer = document.createElement('div')
+    const itemPrice = document.createElement('span')
+    const dataPrice = document.querySelector('[data-price]')
+    itemPrice.textContent = dataPrice.dataset.price + ' x ' + quantity.dataset.quantity
+    const itemTotal = document.createElement('span')
+    const dataTotal = 125 * parseInt(quantity.dataset.quantity)
+    itemTotal.textContent = ` $${dataTotal}.00`
+    itemPrice.classList.add('item-price')
+    itemTotal.classList.add('item-total')
+    priceDetailsContainer.appendChild(itemPrice)
+    priceDetailsContainer.appendChild(itemTotal)
+
+    // Delete button
+    const buttonDelete = document.createElement('button')
+    const buttonDeleteImg = document.createElement('img')
+    buttonDeleteImg.src = "/images/icon-delete.svg"
+    buttonDelete.classList.add('delete-item')
+    buttonDelete.appendChild(buttonDeleteImg)
+
+    // append
+    newList.appendChild(thumbnailDiv)
+    newList.appendChild(cartDetails)
+    cartDetails.appendChild(priceDetailsContainer)
+    newList.appendChild(buttonDelete)
+
+    cartList.appendChild(newList)
+})
+
+
+// Delete item from cart
+cartList.addEventListener('click', event => {
+    // If button is clicked or the img, ensure it has same target element
+    if (event.target.classList.contains('delete-item') || event.target.parentNode.classList.contains('delete-item')) {
+        let targetElement
+        if(event.target.parentNode.classList.contains('delete-item')){
+            targetElement = event.target.parentNode
+        }
+        else{
+            targetElement = event.target
+        }
+        // Delete the list, which is the product item in the cart
+        targetElement.parentNode.remove()
+    }
+})
+
+
+// If successful checkout
+const checkout = document.querySelector('.checkout-button')
+checkout.addEventListener('click', () =>{
+    if(cartList.children.length >= 1){
+        let checkoutTheseItems = Array.from(cartList.children)
+        checkoutTheseItems.forEach(item => {
+            item.remove()
+        })
+        alert('Thank you for your purchase!')
+    }
+})
