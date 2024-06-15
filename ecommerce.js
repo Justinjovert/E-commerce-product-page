@@ -238,6 +238,7 @@ addToCart.addEventListener('click', () => {
 
     cartList.appendChild(newList)
     isCartEmpty()
+    updateNotification(cartList.children.length)
 })
 
 
@@ -256,6 +257,7 @@ cartList.addEventListener('click', event => {
         targetElement.parentNode.remove()
     }
     isCartEmpty()
+    updateNotification(cartList.children.length)
 })
 
 
@@ -264,10 +266,41 @@ const checkout = document.querySelector('.checkout-button')
 checkout.addEventListener('click', () => {
     if (cartList.children.length >= 1) {
         let checkoutTheseItems = Array.from(cartList.children)
+        let totalPrice = 0
         checkoutTheseItems.forEach(item => {
+            let priceString = item.querySelector('.item-total').innerHTML
+            let price = priceString.replace(/[^0-9.]/g, '')
+            totalPrice += parseFloat(price)
             item.remove()
         })
-        alert('Thank you for your purchase!')
+        alert(`Thank you for your purchase! Your total is $${totalPrice}`)
         isCartEmpty()
+        updateNotification(cartList.children.length)
     }
 })
+
+
+// Updates notification of cart
+const updateNotification = (numberOfItems) => {
+    const cartNotification = document.querySelector('[data-cart-quantity]')
+    /* if(!cartNotification){
+        console.log('Hi, there is nothing')
+        return
+    } */
+    if(numberOfItems >= 1 && !cartNotification){
+        const createCartNotification = document.createElement('p')
+        createCartNotification.setAttribute('data-cart-quantity', true)
+        createCartNotification.textContent = numberOfItems
+        console.log(numberOfItems)
+        openCart.appendChild(createCartNotification)
+        console.log('Hi')
+    }
+    else if(numberOfItems == 0){
+        console.log('haha')
+        if(cartNotification) cartNotification.remove()
+    }
+    else if(numberOfItems >= 1){
+        cartNotification.textContent = numberOfItems
+    }
+   
+}

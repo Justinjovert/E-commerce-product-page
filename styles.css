@@ -144,6 +144,27 @@ body {
     border: 0;
     background-color: transparent;
     cursor: pointer;
+    position: relative;
+}
+.cart-button > img{
+}
+.cart-button > p {
+    position: absolute;
+    font-weight: 700;
+    border-radius: 50%;
+    background-color: var(--primary-orange);
+    padding: 5px;
+    font-size: 10px;
+    height: 8px;
+    width: 8px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    top: -8px;
+    right: -5px;
+    margin: 0;
 }
 
 .cart-container {
@@ -237,7 +258,8 @@ body {
     cursor: pointer;
     display: none;
 }
-.checkout-button > div{
+
+.checkout-button>div {
     font-family: 'Kumbh Sans';
     font-weight: 700;
     font-size: 16px;
@@ -465,6 +487,7 @@ body {
     /* background-color: red; */
     display: flex;
     align-items: end;
+    left: -15px;
 }
 
 .product-thumbnails-display::before {
