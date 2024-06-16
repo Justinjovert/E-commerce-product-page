@@ -62,10 +62,12 @@ body {
     box-sizing: border-box;
     text-decoration: none;
     position: relative;
+    
 }
 
 .navbar-links a:hover {
     box-shadow: inset 0 -4px 0 0 var(--primary-orange);
+    border: 1px solid limegreen;
 }
 
 
@@ -102,10 +104,11 @@ body {
     font-size: 22px;
 }
 
-.sidebar-content button {
+.sidebar-content > button {
     padding: 5px;
     box-sizing: border-box;
     border-radius: 5px;
+    margin-left: 5px;
 }
 
 .sidebar-content button:hover {
@@ -117,7 +120,16 @@ body {
     display: flex;
     flex-direction: column;
     font-size: 22px;
-    gap: 30px;
+    gap: 20px;
+}
+.sidebar-collection > a{
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.sidebar-collection > a:hover{
+    background-color: var(--primary-pale-orange);
+    
 }
 
 .sidebar-content a {
@@ -378,11 +390,12 @@ body {
     position: fixed;
     min-width: 280px;
     width: 70vw;
+    /* height: 100vh; */
     max-width: 500px;
     z-index: 100;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -25%);
     display: none;
 }
 
@@ -644,9 +657,9 @@ body {
 }
 
 /* Adjust MINUS svg height to match the sibling elements */
-#lowerQuantity {
+/* #lowerQuantity {
     height: 100%;
-}
+} */
 
 .userinput-quantity button>img {
     object-fit: contain;
@@ -751,7 +764,9 @@ body {
         max-width: 100%;
         min-height: auto;
     }
-
+    .image-container::after {
+        padding: 0;
+    }
     .main-display img {
         object-fit: cover;
         border-radius: 0;
